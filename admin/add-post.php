@@ -1,7 +1,4 @@
-<?php include "header.php"; 
-if($_SESSION["user_role"]=='0'){
-    header('location: admin/post.php');
-  }?>
+<?php include "header.php"; ?>
   <div id="admin-content">
       <div class="container">
          <div class="row">
@@ -24,18 +21,16 @@ if($_SESSION["user_role"]=='0'){
                           <select name="category" class="form-control">
                               <option disabled> Select Category</option>
                               <?php
-                              include "config.php";
-                              $sql1='SELECT * FROM category';
-                              $result1=mysqli_query($conn,$sql1);
-                            //   $alpa=mysqli_num_rows($result1);
-                            //   print_r($result1);
-                            //   die();
-                              if(mysqli_num_rows($result1)> 0){
-                                 while($row=mysqli_fetch_assoc($result1)){
-                                    echo "<option value=".$row['category_name']."> ".$row['category_name']."</option>";
-                                 }
+                                include "config.php";
+                                $sql="SELECT * FROM category";
+                                $result=mysqli_query($conn,$sql) or die(mysqli_error($conn));
+                                if(mysqli_num_rows($result)>0){
+                                    while($row=mysqli_fetch_assoc($result)){
+                                        echo "<option value='{$row["category_id"]}'>$row[category_name]</option>";
+                                    }
 
-                            }
+
+                                }
                               ?>
                           </select>
                       </div>
@@ -46,10 +41,6 @@ if($_SESSION["user_role"]=='0'){
                       <input type="submit" name="submit" class="btn btn-primary" value="Save" required />
                   </form>
                   <!--/Form -->
-                  
-
-
-
               </div>
           </div>
       </div>

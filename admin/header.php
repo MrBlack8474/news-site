@@ -1,8 +1,8 @@
 <?php
-include("config.php");
+include "config.php";
 session_start();
-if (!isset($_SESSION["username"])){
-header("location: index.php");
+if(!isset($_SESSION['username'])){
+    header("{$hostname}/admin/");
 }
 ?>
 <!DOCTYPE html>
@@ -34,7 +34,7 @@ header("location: index.php");
                     <!-- /LOGO -->
                       <!-- LOGO-Out -->
                     <div class="col-md-offset-9  col-md-3">
-                        <a href="logout.php" class="admin-logout" > Hello    <?php echo $_SESSION['username'];?>  logout</a>
+                        <a href="logout.php" class="admin-logout" >Hello  <?php echo $_SESSION['username']?>, Logout</a>
                     </div>
                     <!-- /LOGO-Out -->
                 </div>
@@ -51,8 +51,8 @@ header("location: index.php");
                                 <a href="post.php">Post</a>
                             </li>
                             <?php
-                            if ($_SESSION["user_role"]=='1'){
-                            ?>
+                            if($_SESSION['user_role']=='1'){
+                                ?>
                             <li>
                                 <a href="category.php">Category</a>
                             </li>
@@ -60,8 +60,8 @@ header("location: index.php");
                                 <a href="users.php">Users</a>
                             </li>
                             <?php
-                            }
-                            ?>
+                                 }
+                             ?>
                         </ul>
                     </div>
                 </div>

@@ -1,11 +1,13 @@
 <?php
-// die("program stoped");
-include("config.php");
+
+include "config.php";
 session_start();
-if (isset($_SESSION["username"])){
-header("location: post.php");
+if(isset($_SESSION['username'])){
+    header("{$hostname}/admin/post.php");
 }
 ?>
+
+
 <!doctype html>
 <html>
    <head>
@@ -26,7 +28,7 @@ header("location: post.php");
                         <img class="logo" src="images/news.jpg">
                         <h3 class="heading">Admin</h3>
                         <!-- Form Start -->
-                        <form  action="<?php $_SERVER['PHP_SELF']?>" method ="POST">
+                        <form  action="<?php $_SERVER['PHP_SELF'] ?>" method ="POST">
                             <div class="form-group">
                                 <label>Username</label>
                                 <input type="text" name="username" class="form-control" placeholder="" required>
@@ -38,27 +40,34 @@ header("location: post.php");
                             <input type="submit" name="login" class="btn btn-primary" value="login" />
                         </form>
                         <!-- /Form  End -->
-                        <?php
-                        if (isset($_POST['login'])) {
-                        include'config.php';
-                        $username=mysqli_real_escape_string($conn, $_POST['username']);
-                        $password=md5($_POST['password']);
-                        $sql="SELECT user_id, username, role FROM user WHERE  username='{$username}'AND password='{$password}'";
-                        $result = mysqli_query($conn, $sql) or die("failed");
-                        if(mysqli_num_rows($result) > 0) {
-                            while($row = mysqli_fetch_assoc($result)) {
-                                session_start();
-                                $_SESSION["username"]= $row["username"];
-                                $_SESSION["user_role"]= $row["role"];    
-                                $_SESSION["user_id"]= $row["user_id"];
-                                header("location: post.php");
-                            }
+                         <?php 
+                         if(isset($_POST['login'])){
+                            include "config.php";
+                            $username=mysqli_real_escape_string($conn,$_POST['username']);
+                            $password=md5($_POST['password']);
 
-                        }else{
-                            echo"<div class='alert alert-danger'>username and password are not match.</div>";
-                        }
-                        } 
-                        ?>
+                            $sql="SELECT user_id , username, role FROM user where username='{$username}' AND password='{$password}'";
+                            $result=mysqli_query($conn,$sql)or die(mysqli_error($conn));
+                            if(mysqli_num_rows($result)>0){
+
+                                while($row=mysqli_fetch_assoc($result)){
+                                    session_start();
+                                    $_SESSION['username']=$row['username'];
+                                    $_SESSION['user_id']=$row['user_id'];
+                                    $_SESSION['user_role']=$row['role'];
+                                    // header("{$hostname}/post.php");
+                                    header("{$hostname}/admin/post.php");
+
+                                }
+
+                            }else{
+                                echo "<div class='alert-danger'>User Not Found</div>";
+
+                            }
+                            
+                         }
+                         
+                         ?>
                     </div>
                 </div>
             </div>

@@ -1,14 +1,16 @@
 <?php
-include("config.php");
-// $_SESSION['post_id'];
+include "header.php";
+include "config.php";
+session_start();
+// $_SESSION['user_id'];
 // if($_SESSION["user_role"]=='0'){
 //     header('location: post.php');
 //   }
-$postid=$_POST['post_id'];
+$postid=$_GET["id"];
 // print_r($_post);
 
-echo $postid;
-die();
-$sql='DELETE FROM post WHERE  post_id={$postid}';
+// echo $postid;
+// die();
+$sql = "DELETE FROM post WHERE post_id = {$postid}";
 $result=mysqli_query($conn,$sql);
-header("location: post.php");
+header("{$hostname}/admin/post.php");

@@ -1,4 +1,5 @@
-<?php include "header.php"; 
+<?php
+ include "header.php"; 
 
 // if(isset($_GET['id'])){
     include "config.php";

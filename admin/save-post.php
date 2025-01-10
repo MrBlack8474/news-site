@@ -26,20 +26,20 @@
 session_start();
 
     $title=mysqli_real_escape_string($conn,$_POST['post_title']);
-    $descriptio=mysqli_real_escape_string($conn, $_POST['postdesc']);
+    $description=mysqli_real_escape_string($conn, $_POST['postdesc']);
     $category=mysqli_real_escape_string($conn, $_POST['category']);
     
    //  $image=mysqli_real_escape_string($conn, $_POST['fileToUpload']);
     $date=date("d F,Y") ;
     $author=$_SESSION['user_id'];
     $sql="INSERT INTO post (title,description,category,post_img,author,post_date)  
-    VALUES ('{$title}','{$descriptio}','{$category}','{$file_name}',{$author},'{$date}');";
+    VALUES ('{$title}','{$description}','{$category}','{$file_name}',{$author},'{$date}');";
     $sql.="UPDATE category SET post = post+1 WHERE category_name='{$category}' ";
     if(mysqli_multi_query($conn,$sql)){
 
-    header("location: post.php");
+    header("{$hostname}/admin/post.php");
     exit;
     }else{
       echo "<div class='alert alert-danger'>Query failed</div>";
     }
- 
+ ?>
